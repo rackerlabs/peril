@@ -2,6 +2,8 @@
 
 *Match developers in need with support Rackers who can help them out.*
 
+[![Build Status](https://travis-ci.org/rackerlabs/peril.svg?branch=master)](https://travis-ci.org/rackerlabs/peril)
+
 Peril is a daemon that polls a
 [Cloud Queue](http://docs.rackspace.com/queues/api/v1.0/cq-devguide/content/overview.html)
 for *incidents* and maps them to tickets in a Rackspace ticketing system. It also watches
