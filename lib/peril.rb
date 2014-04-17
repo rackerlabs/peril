@@ -1,7 +1,10 @@
 require 'active_record'
 
-require 'peril/config'
-require 'peril/event'
+require_relative 'peril/config'
+require_relative 'peril/event'
 
 module Peril
+
+  def self.table_name_prefix ; '' ; end
+
 end

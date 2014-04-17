@@ -19,19 +19,7 @@ namespace :db do
   # http://exposinggotchas.blogspot.com/2011/02/activerecord-migrations-without-rails.html
 
   task :connect do
-    @config = Peril::Config.load
-
-    logger = Log4r::Logger.new 'activerecord'
-    logger.outputters = Log4r::Outputter.stdout
-
-    if @config['log_level']
-      logger.level = Log4r.const_get @config['log_level']
-    else
-      logger.level = Log4r::INFO
-    end
-
-    ActiveRecord::Base.establish_connection @config['db']
-    ActiveRecord::Base.logger = logger
+    Peril::Config.dbconnect!
   end
 
   desc 'Migrate the database. Options: VERSION=x, VERBOSE=false'
@@ -49,7 +37,7 @@ namespace :db do
 
   desc 'Retrieves the current schema version number'
   task :version => :connect do
-    step "Current version: #{ActiveRecord::Migrator.current_version}"
+    puts "Current version: #{ActiveRecord::Migrator.current_version}"
   end
 
   desc 'Create a new timestamp-prefixed migration. Options: NAME=string'
