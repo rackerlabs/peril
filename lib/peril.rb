@@ -1,0 +1,2 @@
+module Peril
+end
