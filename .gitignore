@@ -1,0 +1,5 @@
+# "Live" configuration file.
+peril.yml
+
+# Databases
+db/*.sqlite3
