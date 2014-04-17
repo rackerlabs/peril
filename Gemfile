@@ -11,4 +11,5 @@ gem 'dotenv', '~>0.10.0'
 group :development, :test do
   gem 'rake', '~>10.3.0'
   gem 'pry', '~>0.9.12'
+  gem 'sqlite3', '~>1.3.9'
 end
