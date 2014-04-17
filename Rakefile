@@ -11,6 +11,8 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
+task :default => :test
+
 MIGRATIONS_DIR = File.join __dir__, 'db', 'migrations'
 
 namespace :db do
