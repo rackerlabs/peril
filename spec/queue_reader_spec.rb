@@ -5,7 +5,6 @@ describe QueueReader do
   let(:config) { Peril::Config.get }
 
   it 'finds an existing Cloud Queue' do
-    puts config.inspect
     service = Fog::Rackspace::Queues.new(
       rackspace_username: config['rackspace']['username'],
       rackspace_api_key: config['rackspace']['api_key']
