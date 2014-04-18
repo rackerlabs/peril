@@ -35,6 +35,18 @@ module Peril
         e
       end
     end
+
+    # Repeatedly `#scan` the queue for Events. When any are received, yield each.
+    # Stop polling if the called block returns the sentinel value `:stop`.
+    #
+    # @yieldparam event [Event] An Event deserialized from a queue message.
+    # @yieldreturn [Symbol] `:stop` to stop polling.
+    def poll
+      loop do
+        scan.each { |e| return if yield(e) == :stop }
+        sleep Config.get['poll_time']
+      end
+    end
   end
 
 end

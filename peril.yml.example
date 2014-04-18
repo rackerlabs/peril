@@ -3,6 +3,7 @@ development:
     adapter: sqlite3
     database: db/development.sqlite3
   queue_name: peril_events
+  poll_time: 5
 test:
   db:
     adapter: sqlite3
@@ -11,3 +12,4 @@ test:
     username: mocking
     api_key: mocking
   queue_name: peril_events
+  poll_time: 5

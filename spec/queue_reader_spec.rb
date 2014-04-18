@@ -52,7 +52,7 @@ describe QueueReader do
       seen = []
       qr.poll do |event|
         seen << event
-        :stop if seen.size == 5
+        :stop if seen.size >= 6
       end
       seen.map(&:unique_id).must_equal %w(00 11 22 33 44 55)
     end
