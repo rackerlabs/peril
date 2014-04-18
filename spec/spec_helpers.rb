@@ -4,6 +4,8 @@ require 'fog'
 
 require 'peril'
 
+ENV['PERIL_ENV'] = 'test'
+
 include Peril
 
 # Configure the database.
