@@ -3,17 +3,37 @@ require_relative 'spec_helpers'
 describe QueueReader do
   let(:qr) { QueueReader.new }
   let(:config) { Peril::Config.get }
-
-  it 'finds an existing Cloud Queue' do
-    service = Fog::Rackspace::Queues.new(
+  let(:service) do
+    Fog::Rackspace::Queues.new(
       rackspace_username: config['rackspace']['username'],
       rackspace_api_key: config['rackspace']['api_key']
     )
+  end
 
-    existing = service.queues.create name: config['queue_name']
+  before { service.queues.each(&:destroy) }
 
-    found = qr.find_or_create_queue
-    found.must_be_same_as existing
+  def with_service
+    Fog::Rackspace::Queues.stub :new, service do
+      yield
+    end
+  end
+
+  it 'finds an existing Cloud Queue' do
+    with_service do
+      existing = service.queues.create name: config['queue_name']
+
+      found = qr.find_or_create_queue
+      found.name.must_equal existing.name
+    end
+  end
+
+  it 'creates a new Cloud Queue' do
+    with_service do
+      service.queues.all.must_be :empty?
+
+      created = qr.find_or_create_queue
+      created.name.must_equal config['queue_name']
+    end
   end
 
   it 'polls a Cloud Queue for events' do
