@@ -21,7 +21,7 @@ namespace :db do
   # http://exposinggotchas.blogspot.com/2011/02/activerecord-migrations-without-rails.html
 
   task :connect do
-    Peril::Config.dbconnect!
+    Peril::Config.get.dbconnect!
   end
 
   desc 'Migrate the database. Options: VERSION=x, VERBOSE=false'

@@ -57,10 +57,28 @@ module Peril
       v
     end
 
+    # Connect ActiveRecord to the database using these settings.
+    def dbconnect!
+      logger = Log4r::Logger.new 'activerecord'
+      logger.outputters = Log4r::Outputter.stdout
+      logger.level = Log4r.const_get default(:log_level, 'INFO')
+
+      ActiveRecord::Base.establish_connection required(:db)
+      ActiveRecord::Base.logger = logger
+    end
+
+    # The default configuration environment for this process.
+    #
+    # @return [String] The configuration environment.
     def self.env
       ENV['PERIL_ENV'] || 'development'
     end
 
+    # Find and deserialize the configuration as a `Hash`. If you want a
+    # `Config` instance, use `::get`.
+    #
+    # @param environment [String] The current execution environment.
+    # @return [Hash] The deserialized YAML from the configuration file.
     def self.load(environment = env)
       %w(peril.yml peril.yml.example).each do |fname|
         path = File.join ROOT, fname
@@ -69,23 +87,13 @@ module Peril
       raise 'Unable to find a configuration file.'
     end
 
-    def self.get
-      @config ||= load
-    end
-
-    def self.dbconnect!(environment = env)
-      conf = get
-      logger = Log4r::Logger.new 'activerecord'
-      logger.outputters = Log4r::Outputter.stdout
-
-      if conf['log_level']
-        logger.level = Log4r.const_get conf['log_level']
-      else
-        logger.level = Log4r::INFO
-      end
-
-      ActiveRecord::Base.establish_connection conf['db']
-      ActiveRecord::Base.logger = logger
+    # Access the lazily-initialized One True Configuration Instance.
+    #
+    # @param environment [String] Current execution environment. Defaults to
+    #   `PERIL_ENV`, or
+    # @return [Config] An initialized Config object.
+    def self.get(environment = env)
+      @config ||= new(load(environment))
     end
 
   end

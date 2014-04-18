@@ -3,10 +3,12 @@ require_relative 'spec_helpers'
 describe QueueReader do
   let(:qr) { QueueReader.new }
   let(:config) { Peril::Config.get }
+  let(:qname) { config.default(:queue_name, 'peril_events') }
   let(:service) do
     Fog::Rackspace::Queues.new(
-      rackspace_username: config['rackspace']['username'],
-      rackspace_api_key: config['rackspace']['api_key']
+      rackspace_username: config.required(:rackspace, :username),
+      rackspace_api_key: config.required(:rackspace, :api_key),
+      rackspace_region: config.required(:rackspace, :region)
     )
   end
 
@@ -20,7 +22,7 @@ describe QueueReader do
 
   it 'finds an existing Cloud Queue' do
     with_service do
-      existing = service.queues.create name: config['queue_name']
+      existing = service.queues.create name: qname
 
       found = qr.find_or_create_queue
       found.name.must_equal existing.name
@@ -32,7 +34,7 @@ describe QueueReader do
       service.queues.all.must_be :empty?
 
       created = qr.find_or_create_queue
-      created.name.must_equal config['queue_name']
+      created.name.must_equal qname
     end
   end
 
