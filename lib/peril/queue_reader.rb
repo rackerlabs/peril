@@ -7,17 +7,12 @@ module Peril
     # Find the existing Cloud Queue, creating it if necessary.
     def find_or_create_queue
       config = Config.get
-      username = config.fetch('rackspace', {}).fetch('username', 'mocking')
-      apikey = config.fetch('rackspace', {}).fetch('api_key', 'mocking')
+      service = Fog::Rackspace::Queues.new(config.rackspace_credentials)
 
-      service = Fog::Rackspace::Queues.new(
-        rackspace_username: username,
-        rackspace_api_key: apikey
-      )
-
-      @queue = service.queues.get(config['queue_name'])
+      qname = config.default(:queue_name, 'peril_events')
+      @queue = service.queues.get qname
       if @queue.nil?
-        @queue = service.queues.create name: config['queue_name']
+        @queue = service.queues.create name: qname
       end
       @queue
     end
@@ -44,7 +39,7 @@ module Peril
     def poll
       loop do
         scan.each { |e| return if yield(e) == :stop }
-        sleep Config.get['poll_time']
+        sleep Config.get.default(:poll_time, 5)
       end
     end
   end

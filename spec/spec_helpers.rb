@@ -4,13 +4,11 @@ require 'fog'
 
 require 'peril'
 
-ENV['PERIL_ENV'] = 'test'
-
 include Peril
 
 # Configure the database.
 DatabaseCleaner.strategy = :transaction
-Peril::Config.dbconnect!('test')
+Peril::Config.get('test').dbconnect!
 
 # Tell Fog to use mocks.
 Fog.mock!
