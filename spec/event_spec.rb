@@ -65,4 +65,16 @@ describe Event do
       e.unique_id.must_equal 'minitest:origin:12345'
     end
   end
+
+  describe 'validations' do
+    it 'must have a reporter' do
+      e = Event.from_h unique_id: 'something'
+      e.wont_be :valid?
+    end
+
+    it 'must have some way to derive a unique_id' do
+      e = Event.from_h reporter: 'minitest'
+      e.wont_be :valid?
+    end
+  end
 end

@@ -2,6 +2,8 @@ module Peril
 
   class Event < ActiveRecord::Base
 
+    validates :reporter, :unique_id, presence: true
+
     def assignment?
       assignee && assigned_at && completed_at.nil?
     end
