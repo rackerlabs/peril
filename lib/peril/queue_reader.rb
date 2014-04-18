@@ -27,7 +27,7 @@ module Peril
     #
     # @return [Array<Event>] A (possibly empty) set of Events that were
     #   discovered.
-    def poll
+    def scan
       @queue.messages.map do |message|
         doc = JSON.parse(message.body)
         e = Event.from_h(doc)
