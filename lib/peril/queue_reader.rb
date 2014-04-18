@@ -20,14 +20,14 @@ module Peril
     # Query the queue for any pending messages. Deserialize any discovered
     # into Events.
     #
-    # @return [Array<Event>] A (possibly empty) set of Events that were
-    #   discovered.
+    # @yieldparam [Event] A (possibly invalid) Event that was parsed.
+    #
     def scan
-      @queue.messages.map do |message|
+      @queue.messages.each do |message|
         doc = JSON.parse(message.body)
-        e = Event.from_h(doc)
+        r = yield Event.from_h(doc)
         message.destroy
-        e
+        return :stop if r == :stop
       end
     end
 
@@ -36,9 +36,11 @@ module Peril
     #
     # @yieldparam event [Event] An Event deserialized from a queue message.
     # @yieldreturn [Symbol] `:stop` to stop polling.
+    #
     def poll
       loop do
-        scan.each { |e| return if yield(e) == :stop }
+        r = scan { |e| yield e }
+        return if r == :stop
         sleep Config.get.default(:poll_time, 5)
       end
     end

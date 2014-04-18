@@ -43,7 +43,9 @@ describe QueueReader do
     end
 
     it 'scans a Cloud Queue for events' do
-      qr.scan.map(&:unique_id).must_equal %w(00 11 22 33 44 55)
+      seen = []
+      qr.scan { |e| seen << e }
+      seen.map(&:unique_id).must_equal %w(00 11 22 33 44 55)
     end
 
     it 'polls a Cloud Queue for events' do
