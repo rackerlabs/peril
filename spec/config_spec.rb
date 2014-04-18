@@ -1,6 +1,6 @@
 require_relative 'spec_helpers'
 
-describe Config do
+describe Peril::Config do
   describe 'once loaded' do
     let(:config) do
       Peril::Config.new(
