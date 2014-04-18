@@ -5,11 +5,7 @@ describe QueueReader do
   let(:config) { Peril::Config.get }
   let(:qname) { config.default(:queue_name, 'peril_events') }
   let(:service) do
-    Fog::Rackspace::Queues.new(
-      rackspace_username: config.required(:rackspace, :username),
-      rackspace_api_key: config.required(:rackspace, :api_key),
-      rackspace_region: config.required(:rackspace, :region)
-    )
+    Fog::Rackspace::Queues.new(config.rackspace_credentials)
   end
 
   before { service.queues.each(&:destroy) }

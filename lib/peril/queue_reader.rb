@@ -7,11 +7,7 @@ module Peril
     # Find the existing Cloud Queue, creating it if necessary.
     def find_or_create_queue
       config = Config.get
-      service = Fog::Rackspace::Queues.new(
-        rackspace_username: config.required(:rackspace, :username),
-        rackspace_api_key: config.required(:rackspace, :api_key),
-        rackspace_region: config.required(:rackspace, :region)
-      )
+      service = Fog::Rackspace::Queues.new(config.rackspace_credentials)
 
       qname = config.default(:queue_name, 'peril_events')
       @queue = service.queues.get qname
