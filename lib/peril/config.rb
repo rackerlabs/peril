@@ -80,7 +80,18 @@ module Peril
       }
     end
 
-    def configure_logging!(scope)
+    # Configure the root logger using optional settings from the
+    # `logger` subsection.
+    #
+    # Recognized settings:
+    # * `level`: The master logging level for all loggers. One of
+    #     `DEBUG`, `INFO`, `WARN`, `ERROR`, or `FATAL`. Defaults to
+    #     `INFO`.
+    # * `filename`: The path to write logging messages to. Defaults
+    #     to stdout.
+    # * `maxsize`: The maximum filesize in bytes before rolling over.
+    #     Default: 10485760 (10MB).
+    def configure_logging!
       root = Log4r::Logger.root
 
       level_name = default(:logging, :level)
@@ -99,9 +110,9 @@ module Peril
       end
     end
 
-    # Acquire a logger for the named scope, configured with a logging
+    # Configure a logger for the named scope, configured with a logging
     # level and output configuration as specified by the Config.
-    def logger(scope)
+    def configure_logger(scope)
       logger = Log4r::Logger.new scope
 
       level_name = optional(:logging, scope, :level)
