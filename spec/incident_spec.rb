@@ -8,7 +8,7 @@ describe Incident do
     it 'creates a new unassigned Incident' do
       e = Event.from_h unique_id: 'some incident', reporter: 'minitest'
 
-      Incident.where(unique_id: 'some incident').must_be_nil
+      Incident.where(unique_id: 'some incident').all.must_be :empty?
       i = Incident.for_event(e)
       i.unique_id.must_equal 'some incident'
       i.original_reporter.must_equal 'minitest'
@@ -21,6 +21,8 @@ describe Incident do
 
   describe 'update from an Event' do
     it 'appends to the Event collection'
+    it "doesn't change the original_reporter"
+    it 'updates other fields'
     it 'updates the assignee'
     it 'updates to the completed state'
   end
