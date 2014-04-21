@@ -3,11 +3,7 @@ require 'active_record'
 require 'yaml'
 require 'log4r'
 
-require_relative 'lib/peril/config'
-
 Rake::TestTask.new do |t|
-  ENV['PERIL_ENV'] ||= 'test'
-
   t.libs.push 'lib'
   t.test_files = FileList['spec/*_spec.rb']
   t.verbose = true
@@ -23,6 +19,8 @@ namespace :db do
   # http://exposinggotchas.blogspot.com/2011/02/activerecord-migrations-without-rails.html
 
   task :connect do
+    require_relative 'lib/peril/config'
+
     puts "Connecting to #{Peril::Config.env} database"
     Peril::Config.get.dbconnect!
   end
