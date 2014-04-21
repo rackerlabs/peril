@@ -64,7 +64,32 @@ describe Incident do
       incident.title.must_equal 'Hello'
     end
 
-    it 'updates the assignee'
-    it 'updates to the completed state'
+    it 'updates the assignee' do
+      e = Event.from_h unique_id: 'existing', reporter: 'minitest',
+        assignee: 'racker', assigned_at: t
+
+      incident.wont_be :assigned?
+      incident.wont_be :completed?
+
+      Incident.for_event(e)
+
+      incident.reload
+      incident.must_be :assigned?
+      incident.wont_be :completed?
+    end
+
+    it 'updates to the completed state' do
+      e = Event.from_h unique_id: 'existing', reporter: 'minitest',
+        assignee: 'racker', assigned_at: t, completed_at: t
+
+      incident.wont_be :assigned?
+      incident.wont_be :completed?
+
+      Incident.for_event(e)
+
+      incident.reload
+      incident.wont_be :assigned?
+      incident.must_be :completed?
+    end
   end
 end
