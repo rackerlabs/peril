@@ -13,6 +13,14 @@ module Peril
     def process(event, incident)
     end
 
+    # Pass an `event` and `incident` to all registered `Notifiers`.
+    #
+    # @see process
+    #
+    def self.handle(event, incident)
+      known.each { |n| n.process event, incident }
+    end
+
     # The collection of `registered` Notifier subclass instances.
     #
     def self.known

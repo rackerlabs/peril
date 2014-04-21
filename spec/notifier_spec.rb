@@ -27,7 +27,7 @@ describe Notifier do
     FakeNotifier.register
     n = Notifier.known.detect { |n| FakeNotifier === n }
 
-    FakeNotifier.handle 1, 2
+    Notifier.handle 1, 2
     n.event.must_equal 1
     n.incident.must_equal 2
   end
