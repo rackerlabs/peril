@@ -8,7 +8,7 @@ include Peril
 
 # Configure the database.
 DatabaseCleaner.strategy = :transaction
-Peril::Config.get('test').dbconnect!
+Peril::Config.get.dbconnect!
 
 # Tell Fog to use mocks.
 Fog.mock!

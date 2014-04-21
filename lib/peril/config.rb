@@ -139,7 +139,6 @@ module Peril
     # Find and deserialize the configuration as a `Hash`. If you want a
     # `Config` instance, use `::get`.
     #
-    # @param environment [String] The current execution environment.
     # @return [Hash] The deserialized YAML from the configuration file.
     #
     def self.load
@@ -152,11 +151,10 @@ module Peril
 
     # Access the lazily-initialized One True Configuration Instance.
     #
-    # @param environment [String] Current execution environment. Defaults to
-    #   `PERIL_ENV`, or
     # @return [Config] An initialized Config object.
-    def self.get(environment = env)
-      @config ||= new(load(environment))
+    #
+    def self.get
+      @config ||= new(load)
     end
 
   end
