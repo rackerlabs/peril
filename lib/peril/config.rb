@@ -92,8 +92,8 @@ module Peril
       logger = Log4r::Logger.new scope
 
       level_name = optional(:logging, scope, :level)
-      level_name = default([:logging, :level], 'INFO')
-      logger.level = Log4r.const_get(level_name) if level_name
+      level_name = default([:logging, :level], 'INFO') unless level_name
+      logger.level = Log4r.const_get(level_name)
 
       file_name = optional(:logging, :filename)
       if file_name
