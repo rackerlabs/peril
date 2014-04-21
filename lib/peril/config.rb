@@ -97,9 +97,9 @@ module Peril
       level_name = default(:logging, :level)
       root.level = Log4r.const_get(level_name)
 
-      file_name = optional(:logging, :file)
+      file_name = optional(:logging, :filename)
       if file_name
-        max_size = default(:logging, :maxsize)
+        max_size = default([:logging, :maxsize], 10485760)
 
         root.outputters = Log4r::RollingFileOutputter(
           filename: file_name,
