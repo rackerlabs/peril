@@ -12,7 +12,7 @@ require 'peril'
 include Peril
 
 # Configure the database.
-DatabaseCleaner.strategy = :transaction
+DatabaseCleaner.strategy = :truncation
 Peril::Config.get.dbconnect!
 
 # Tell Fog to use mocks.
