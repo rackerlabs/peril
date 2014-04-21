@@ -33,11 +33,10 @@ module Peril
     # @yieldparam [Event] A (possibly invalid) Event that was parsed.
     #
     def scan
-      @queue.messages.each do |message|
+      @queue.messages.all.each do |message|
         logger.debug "processing event from message [#{message.id}]"
 
-        doc = JSON.parse(message.body)
-        r = yield Event.from_h(doc)
+        r = yield Event.from_h(message.body)
 
         logger.debug "disposing of message [#{message.id}]"
         message.destroy
