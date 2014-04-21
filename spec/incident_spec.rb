@@ -15,8 +15,23 @@ describe Incident do
       i.events.must_equal [e]
     end
 
-    it 'creates an assigned Incident'
-    it 'creates a completed Incident'
+    it 'creates an assigned Incident' do
+      e = Event.from_h unique_id: 'aaa', reporter: 'minitest',
+        assignee: 'racker', assigned_at: t
+
+      i = Incident.for_event(e)
+      i.must_be :assigned?
+      i.wont_be :completed?
+    end
+
+    it 'creates a completed Incident' do
+      e = Event.from_h unique_id: 'aaa', reporter: 'minitest',
+        assignee: 'racker', assigned_at: t, completed_at: t
+
+      i = Incident.for_event(e)
+      i.wont_be :assigned?
+      i.must_be :completed?
+    end
   end
 
   describe 'update from an Event' do

@@ -23,6 +23,14 @@ module Peril
   class Incident < ActiveRecord::Base
     has_many :events
 
+    def assigned?
+      assignee && assigned_at && completed_at.nil?
+    end
+
+    def completed?
+      !! completed_at
+    end
+
     # Find or create an Incident that maps to the `unique_id` specified by
     # an Event. Populate or update it based on the event's context and add
     # the Event to its `#events` relation.
