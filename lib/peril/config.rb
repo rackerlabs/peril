@@ -80,6 +80,34 @@ module Peril
       }
     end
 
+    def configure_logging!(scope)
+      root = Log4r::Logger.root
+
+      level_name = default(:logging, :level)
+      root.level = Log4r.const_get(level_name)
+
+      file_name = optional(:logging, :file)
+      if file_name
+        max_size = default(:logging, :maxsize)
+
+        root.outputters = Log4r::RollingFileOutputter(
+          filename: file_name,
+          maxsize: max_size
+        )
+      else
+        root.outputters = Log4r::Outputter.stdout
+      end
+    end
+
+    # Acquire a logger for the named scope, configured with a logging
+    # level and output configuration as specified by the Config.
+    def logger(scope)
+      logger = Log4r::Logger.new scope
+
+      level_name = optional(:logging, scope, :level)
+      logger.level = Log4r.const_get(level_name) if level_name
+    end
+
     # The default configuration environment for this process.
     #
     # @return [String] The configuration environment.
