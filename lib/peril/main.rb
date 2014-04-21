@@ -15,7 +15,9 @@ module Peril
       qr = QueueReader.new
       qr.find_or_create_queue
       qr.poll do |event|
-        logger.info "Got: #{event.inspect}"
+        logger.debug "Processing: #{event.inspect}"
+        incident = Incident.for_event(event)
+        Notifier.handle(event, incident)
       end
     end
   end
