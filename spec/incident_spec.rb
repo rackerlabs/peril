@@ -13,6 +13,9 @@ describe Incident do
       i.unique_id.must_equal 'some incident'
       i.original_reporter.must_equal 'minitest'
       i.events.must_equal [e]
+
+      i.must_be :just_created?
+      i.wont_be :just_updated?
     end
 
     it 'creates an assigned Incident' do
@@ -45,6 +48,8 @@ describe Incident do
       i = Incident.for_event(e)
       incident.reload
       i.must_equal incident
+      i.must_be :just_updated?
+      i.wont_be :just_created?
       i.events.must_include e
     end
 

@@ -23,6 +23,9 @@ module Peril
   class Incident < ActiveRecord::Base
     has_many :events
 
+    # Non-ActiveRecord attributes.
+    attr_accessor :just_created, :just_updated
+
     def assigned?
       assignee && assigned_at && completed_at.nil?
     end
@@ -31,6 +34,10 @@ module Peril
       !! completed_at
     end
 
+    def just_created? ; @just_created ; end
+
+    def just_updated? ; @just_updated ; end
+
     # Find or create an Incident that maps to the `unique_id` specified by
     # an Event. Populate or update it based on the event's context and add
     # the Event to its `#events` relation.
@@ -38,6 +45,12 @@ module Peril
     # @param e [Event] New information.
     #
     def self.for_event(e)
+      created = false
+      i = find_or_create_by(unique_id: e.unique_id) do |n|
+        n.original_reporter = e.reporter
+        created = true
+      end
+
       i = create_with(original_reporter: e.reporter).
         find_or_create_by(unique_id: e.unique_id)
 
@@ -47,6 +60,10 @@ module Peril
 
       i.events << e
       i.save!
+
+      i.just_created = created
+      i.just_updated = ! created
+
       i
     end
   end
