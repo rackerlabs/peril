@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+#
+# Publish fake events to the event queue.
+
+require_relative '../lib/peril'
+
+include Peril::Loggable
+
+logger.info 'starting event seeder'
+
+qr = Peril::QueueReader.new
+q = qr.find_or_create_queue
+count = 0
+loop do
+  if rand < 0.75
+    num = count
+    count += 1
+  else
+    num = rand(count)
+  end
+
+  logger.info "enqueueing incident-#{num}"
+  q.enqueue({
+    unique_id: "incident-#{num}",
+    reporter: 'seed',
+    url: "http://example.com/link#{num}"
+  }, 600)
+
+  sleep rand(10)
+end
