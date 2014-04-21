@@ -65,12 +65,10 @@ module Peril
     # Connect ActiveRecord to the database using these settings.
     #
     def dbconnect!
-      logger = Log4r::Logger.new 'activerecord'
-      logger.outputters = Log4r::Outputter.stdout
-      logger.level = Log4r.const_get default(:log_level, 'INFO')
+      configure_logger 'activerecord'
 
       ActiveRecord::Base.establish_connection required(:db)
-      ActiveRecord::Base.logger = logger
+      ActiveRecord::Base.logger = Log4r::Logger['activerecord']
     end
 
     # Bundle Rackspace credentials together.
@@ -87,37 +85,6 @@ module Peril
       }
     end
 
-    # Configure the root logger using optional settings from the
-    # `logger` subsection.
-    #
-    # Recognized settings:
-    # * `level`: The master logging level for all loggers. One of
-    #     `DEBUG`, `INFO`, `WARN`, `ERROR`, or `FATAL`. Defaults to
-    #     `INFO`.
-    # * `filename`: The path to write logging messages to. Defaults
-    #     to stdout.
-    # * `maxsize`: The maximum filesize in bytes before rolling over.
-    #     Default: 10485760 (10MB).
-    #
-    def configure_logging!
-      root = Log4r::Logger.root
-
-      level_name = default(:logging, :level)
-      root.level = Log4r.const_get(level_name)
-
-      file_name = optional(:logging, :filename)
-      if file_name
-        max_size = default([:logging, :maxsize], 10485760)
-
-        root.outputters = Log4r::RollingFileOutputter(
-          filename: file_name,
-          maxsize: max_size
-        )
-      else
-        root.outputters = Log4r::Outputter.stdout
-      end
-    end
-
     # Configure a logger for the named scope, configured with a logging
     # level and output configuration as specified by the Config.
     #
@@ -125,7 +92,20 @@ module Peril
       logger = Log4r::Logger.new scope
 
       level_name = optional(:logging, scope, :level)
+      level_name = default([:logging, :level], 'INFO')
       logger.level = Log4r.const_get(level_name) if level_name
+
+      file_name = optional(:logging, :filename)
+      if file_name
+        max_size = default([:logging, :maxsize], 10485760)
+
+        logger.outputters = [Log4r::RollingFileOutputter(
+          filename: file_name,
+          maxsize: max_size
+        )]
+      else
+        logger.outputters = [Log4r::Outputter.stdout]
+      end
     end
 
     # The default configuration environment for this process.

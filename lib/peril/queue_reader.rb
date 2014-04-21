@@ -1,11 +1,13 @@
 module Peril
 
   # Create Events from a Cloud Queue.
+  #
   class QueueReader
     include Loggable
     attr_reader :queue
 
     # Find the existing Cloud Queue, creating it if necessary.
+    #
     def find_or_create_queue
       config = Config.get
 
@@ -51,7 +53,7 @@ module Peril
     #
     def poll
       loop do
-        logger.debug "starting poll"
+        logger.debug 'polling'
         r = scan { |e| yield e }
         return if r == :stop
         sleep Config.get.default(:poll_time, 5)
