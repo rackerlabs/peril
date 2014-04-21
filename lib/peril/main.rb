@@ -12,8 +12,6 @@ module Peril
       config = Peril::Config.get
       config.dbconnect!
 
-      logger.fatal "LOG DAMN YOU"
-
       qr = QueueReader.new
       qr.find_or_create_queue
       qr.poll do |event|
