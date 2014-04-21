@@ -1,5 +1,22 @@
 module Peril
 
+
+  # Schema:
+  #
+  # t.string :unique_id
+  # t.string :reporter
+  # t.integer :incident_id
+  #
+  # t.string :url
+  # t.string :title
+  # t.string :tags
+  #
+  # t.string :assignee
+  # t.timestamp :assigned_at
+  # t.timestamp :completed_at
+  #
+  # t.string :extra
+  #
   class Event < ActiveRecord::Base
 
     validates :reporter, :unique_id, presence: true
