@@ -6,6 +6,8 @@ require 'log4r'
 require_relative 'lib/peril/config'
 
 Rake::TestTask.new do |t|
+  ENV['PERIL_ENV'] ||= 'test'
+
   t.libs.push 'lib'
   t.test_files = FileList['spec/*_spec.rb']
   t.verbose = true
