@@ -38,7 +38,7 @@ describe QueueReader do
     before do
       q = qr.find_or_create_queue
       0.upto(5) do |i|
-        q.enqueue "{ \"unique_id\": \"#{i}#{i}\", \"reporter\": \"minitest\" }", 3600
+        q.enqueue({ unique_id: "#{i}#{i}", reporter: 'minitest' }, 3600)
       end
     end
 
