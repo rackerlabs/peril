@@ -1,5 +1,3 @@
-require_relative 'config'
-
 module Peril
 
   # Mix in to another object to provide a `logger` method that emits to a
