@@ -21,12 +21,14 @@ module Peril
   # ```
   #
   class Incident < ActiveRecord::Base
+    has_many :events
 
     # Find or create an Incident that maps to the `unique_id` specified by
     # an Event. Populate or update it based on the event's context and add
     # the Event to its `#events` relation.
     #
     # @param e [Event] New information.
+    #
     def self.for_event(e)
       i = create_with(original_reporter: e.reporter).
         find_or_create_by(unique_id: e.unique_id)
@@ -34,6 +36,8 @@ module Peril
       %i{url title tags assignee assigned_at completed_at extra}.each do |attr|
         i.send("#{attr}=", e.send(attr))
       end
+
+      i.events << e
       i.save!
       i
     end

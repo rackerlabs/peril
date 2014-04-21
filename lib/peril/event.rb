@@ -18,6 +18,7 @@ module Peril
   # t.string :extra
   #
   class Event < ActiveRecord::Base
+    belongs_to :incident
 
     validates :reporter, :unique_id, presence: true
 
