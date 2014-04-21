@@ -35,9 +35,35 @@ describe Incident do
   end
 
   describe 'update from an Event' do
-    it 'appends to the Event collection'
-    it "doesn't change the original_reporter"
-    it 'updates other fields'
+    let(:incident) { Incident.create! unique_id: 'existing', original_reporter: 'minitest' }
+
+    before { incident }
+
+    it 'appends to the Event collection' do
+      e = Event.from_h unique_id: 'existing', reporter: 'minitest'
+
+      i = Incident.for_event(e)
+      incident.reload
+      i.must_equal incident
+      i.events.must_include e
+    end
+
+    it "doesn't change the original_reporter" do
+      e = Event.from_h unique_id: 'existing', reporter: 'craaaazy'
+
+      Incident.for_event(e).original_reporter.must_equal 'minitest'
+    end
+
+    it 'updates other fields' do
+      e = Event.from_h unique_id: 'existing', reporter: 'minitest',
+        url: 'http://example.com/', title: 'Hello'
+
+      Incident.for_event(e)
+      incident.reload
+      incident.url.must_equal 'http://example.com/'
+      incident.title.must_equal 'Hello'
+    end
+
     it 'updates the assignee'
     it 'updates to the completed state'
   end
