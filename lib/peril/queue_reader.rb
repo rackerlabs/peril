@@ -52,7 +52,7 @@ module Peril
     #
     def poll
       loop do
-        logger.debug 'polling'
+        logger.debug "polling at #{Time.now}"
         r = scan { |e| yield e }
         return if r == :stop
         sleep Config.get.default(:poll_time, 5)
