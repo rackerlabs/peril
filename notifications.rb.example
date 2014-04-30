@@ -1,0 +1,9 @@
+# Copy this file to `notifications.rb` and customize it to control the active
+# Notifiers.
+
+Dir[File.join __dir__, 'lib', 'peril', 'notifiers', '*.rb'].each do |nrb|
+  require nrb
+end
+
+Peril::Notifiers::LoggerNotifier.register
+Peril::Notifiers::HipChatNotifier.register
