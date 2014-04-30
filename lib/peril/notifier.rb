@@ -4,6 +4,11 @@ module Peril
   #
   class Notifier
 
+    # Perform post-configuration setup for the Notifier instance.
+    #
+    def setup
+    end
+
     # Handle an incoming Event and the Incident it was resolved to.
     #
     # @param event [Event] The Event that was just received.
@@ -57,6 +62,7 @@ module Peril
     def self.register
       n = new
       yield n if block_given?
+      n.setup
       Notifier.known << n
     end
   end
