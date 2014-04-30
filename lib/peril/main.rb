@@ -12,6 +12,8 @@ module Peril
       config = Peril::Config.get
       config.dbconnect!
 
+      Notifier.activate
+
       qr = QueueReader.new
       qr.find_or_create_queue
       qr.poll do |event|

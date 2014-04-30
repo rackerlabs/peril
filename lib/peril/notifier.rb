@@ -4,11 +4,16 @@ module Peril
   #
   class Notifier
 
+    # Perform post-configuration setup for the Notifier instance.
+    #
+    def setup
+    end
+
     # Handle an incoming Event and the Incident it was resolved to.
     #
     # @param event [Event] The Event that was just received.
     # @param incident [Incident] The Incident that has been created or updated
-    #   with its contents.s
+    #   with its contents.
     #
     def process(event, incident)
     end
@@ -19,6 +24,21 @@ module Peril
     #
     def self.handle(event, incident)
       known.each { |n| n.process event, incident }
+    end
+
+    # Load the `notifications.rb` or `notifications.rb.example` file to
+    # activate and configure Notifier subclasses.
+    #
+    def self.activate
+      %w{notifications.rb notifications.rb.example}.each do |path|
+        full_path = File.join Config::ROOT, path
+        if File.exist?(full_path)
+          load full_path
+          return
+        end
+      end
+
+      raise RuntimeError.new('Unable to configure active Notifiers.')
     end
 
     # The collection of `registered` Notifier subclass instances.
@@ -42,6 +62,7 @@ module Peril
     def self.register
       n = new
       yield n if block_given?
+      n.setup
       Notifier.known << n
     end
   end
