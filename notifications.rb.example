@@ -6,4 +6,7 @@ Dir[File.join __dir__, 'lib', 'peril', 'notifiers', '*.rb'].each do |nrb|
 end
 
 Peril::Notifiers::LoggerNotifier.register
-Peril::Notifiers::HipChatNotifier.register
+
+# Peril::Notifiers::HipChatNotifier.register do |hc|
+#   hc.api_token = 'abcdef'
+# end
