@@ -8,11 +8,16 @@ include Peril::Loggable
 
 logger.info 'starting event seeder'
 
+@config = Peril::Config.get
+@config.dbconnect!
+
+Peril::Incident.delete_all
+
 qr = Peril::QueueReader.new
 q = qr.find_or_create_queue
 count = 0
 loop do
-  if rand < 0.75
+  if rand < 0.75 || count <= 1
     num = count
     count += 1
   else
