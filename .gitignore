@@ -1,5 +1,6 @@
 # "Live" configuration file.
 peril.yml
+notifications.rb.example
 
 # Databases
 db/*.sqlite3
