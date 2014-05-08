@@ -4,3 +4,6 @@ notifications.rb
 
 # Databases
 db/*.sqlite3
+
+# In production
+.bundle
