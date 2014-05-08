@@ -15,3 +15,7 @@ group :development, :test do
   gem 'sqlite3', '~>1.3.9'
   gem 'database_cleaner', '~>1.2.0'
 end
+
+group :production do
+  gem 'pg', '~>0.17.1'
+end
