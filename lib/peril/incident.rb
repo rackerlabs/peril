@@ -6,18 +6,18 @@ module Peril
   # Schema:
   #
   # ```
-  # t.string :unique_id
-  # t.string :original_reporter
+  # t.text :unique_id
+  # t.text :original_reporter
   #
-  # t.string :url
-  # t.string :title
-  # t.string :tags
+  # t.text :url
+  # t.text :title
+  # t.text :tags
   #
-  # t.string :assignee
+  # t.texts :assignee
   # t.timestamp :assigned_at
   # t.timestamp :completed_at
   #
-  # t.string :extra
+  # t.text :extra
   # ```
   #
   class Incident < ActiveRecord::Base

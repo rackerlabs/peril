@@ -3,19 +3,19 @@ module Peril
 
   # Schema:
   #
-  # t.string :unique_id
-  # t.string :reporter
+  # t.text :unique_id
+  # t.text :reporter
   # t.integer :incident_id
   #
-  # t.string :url
-  # t.string :title
-  # t.string :tags
+  # t.text :url
+  # t.text :title
+  # t.text :tags
   #
-  # t.string :assignee
+  # t.text :assignee
   # t.timestamp :assigned_at
   # t.timestamp :completed_at
   #
-  # t.string :extra
+  # t.text :extra
   #
   class Event < ActiveRecord::Base
     belongs_to :incident
