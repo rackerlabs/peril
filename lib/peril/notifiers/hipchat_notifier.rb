@@ -5,6 +5,16 @@ module Peril
     class HipChatNotifier < Notifier
       include Loggable
 
+      NEW_INCIDENT_MESSAGES = [
+        'New Peril Incident!',
+        'Heads up, incoming!',
+        'Someone needs help!',
+        'A Developer is in Peril!',
+        'Fix it fix it fix it fix it fix it',
+        'BWEEEEEP BWEEEEP BWEEEEP',
+        'http://www.jasonawesome.com/wp-content/uploads/2010/01/help.jpg'
+      ]
+
       attr_accessor :api_token, :username, :room
 
       def setup
@@ -21,7 +31,7 @@ module Peril
         return unless incident.just_created?
 
         message = []
-        message << 'Someone needs help!'
+        message << NEW_INCIDENT_MESSAGES[rand(NEW_INCIDENT_MESSAGES.size)]
         if incident.url
           message << "<a href='#{incident.url}'>#{incident.title}</a>"
         else
