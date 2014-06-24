@@ -1,7 +1,7 @@
 require 'active_record'
 require 'fog'
 
-# Fail loudly if the a locale is unavailable.
+# Fail loudly if a locale is unavailable.
 I18n.config.enforce_available_locales = true
 
 require_relative 'peril/config'
