@@ -1,8 +1,14 @@
+require_relative 'pluggable'
+
 module Peril
 
   # Performs some form of notification after a new Event has been received.
   #
   class Notifier
+
+    extend Pluggable
+
+    activation_filename 'notifications.rb'
 
     # Perform post-configuration setup for the Notifier instance.
     #
@@ -26,45 +32,6 @@ module Peril
       known.each { |n| n.process event, incident }
     end
 
-    # Load the `notifications.rb` or `notifications.rb.example` file to
-    # activate and configure Notifier subclasses.
-    #
-    def self.activate
-      %w{notifications.rb notifications.rb.example}.each do |path|
-        full_path = File.join Config::ROOT, path
-        if File.exist?(full_path)
-          load full_path
-          return
-        end
-      end
-
-      raise RuntimeError.new('Unable to configure active Notifiers.')
-    end
-
-    # The collection of `registered` Notifier subclass instances.
-    #
-    def self.known
-      @known ||= []
-    end
-
-    # Reset the collection of known Notifiers. Most useful in specs.
-    #
-    def self.clear
-      @known = []
-    end
-
-    # Register a subclass as a known Notifier. If a block is given, it can be
-    # used to customize the new instance.
-    #
-    # @yieldparam n [Notifier] The newly instantiated Notifier subclass before
-    #   it's added to `known`.
-    #
-    def self.register
-      n = new
-      yield n if block_given?
-      n.setup
-      Notifier.known << n
-    end
   end
 
 end

@@ -6,11 +6,14 @@ I18n.config.enforce_available_locales = true
 
 require_relative 'peril/config'
 require_relative 'peril/loggable'
+require_relative 'peril/plugin_set'
+require_relative 'peril/pluggable'
+
 require_relative 'peril/notifier'
+require_relative 'peril/slurper'
 
 require_relative 'peril/event'
 require_relative 'peril/incident'
-require_relative 'peril/queue_reader'
 
 require_relative 'peril/main'
 
