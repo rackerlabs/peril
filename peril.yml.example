@@ -2,17 +2,9 @@ development:
   db:
     adapter: sqlite3
     database: db/development.sqlite3
-  rackspace:
-    username: mocking
-    api_key: mocking
-    region: ORD
   poll_time: '10s'
 test:
   db:
     adapter: sqlite3
     database: db/test.sqlite3
-  rackspace:
-    username: mocking
-    api_key: mocking
-    region: ORD
   poll_time: '1s'

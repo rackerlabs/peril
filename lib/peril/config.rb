@@ -71,20 +71,6 @@ module Peril
       ActiveRecord::Base.logger = Log4r::Logger['activerecord']
     end
 
-    # Bundle Rackspace credentials together.
-    #
-    # @return [Hash] All `:rackspace` API credentials for fog.
-    # @raise [MissingConfigError] If one or more of the required credentials
-    #   are absent.
-    #
-    def rackspace_credentials
-      {
-        rackspace_username: required(:rackspace, :username),
-        rackspace_api_key: required(:rackspace, :api_key),
-        rackspace_region: required(:rackspace, :region)
-      }
-    end
-
     # Configure a logger for the named scope, configured with a logging
     # level and output configuration as specified by the Config.
     #
