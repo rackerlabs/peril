@@ -6,8 +6,7 @@ development:
     username: mocking
     api_key: mocking
     region: ORD
-  queue_name: peril_events
-  poll_time: 5
+  poll_time: '10s'
 test:
   db:
     adapter: sqlite3
@@ -16,5 +15,4 @@ test:
     username: mocking
     api_key: mocking
     region: ORD
-  queue_name: peril_events
-  poll_time: 1
+  poll_time: '1s'
