@@ -9,7 +9,7 @@ class FakeSlurper < Slurper
   end
 
   def next_events
-    e = @event.shift
+    e = @events.shift
     e.nil? ? [] : [e]
   end
 end
@@ -26,5 +26,17 @@ describe Slurper do
     FakeSlurper.register { |s| s.called = true }
     s = Slurper.known.detect { |s| FakeSlurper === s }
     s.must_be :called
+  end
+
+  it 'consumes events from registered slurpers' do
+    FakeSlurper.register do |s|
+      s.events << :one
+      s.events << :two
+      s.events << :tree
+    end
+
+    seen = []
+    Slurper.poll { |e| seen << e }
+    seen.must_equal [:one]
   end
 end
