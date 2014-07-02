@@ -5,6 +5,10 @@ Dir[File.join __dir__, 'lib', 'peril', 'slurpers', '*.rb'].each do |srb|
   require srb
 end
 
+Peril::Slurpers::Dirslurp.register do |dslurp|
+  dslurp.directory '/var/peril/events'
+end
+
 # Peril::Slurpers::Hubslurp.register do |hub|
 #   hub.access_token = ''
 #
