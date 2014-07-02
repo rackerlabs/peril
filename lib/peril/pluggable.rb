@@ -53,7 +53,6 @@ module Peril
     def clear
       plugin_set.clear
     end
-
   end
 
 end

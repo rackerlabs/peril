@@ -34,24 +34,28 @@ module Peril
 
       raise RuntimeError.new("Unable to configure active #{@klass.name}.")
     end
-  end
 
-  # Reset the collection of activated plugins. Most useful in specs.
-  #
-  def clear
-    @known = []
-  end
+    # Reset the collection of activated plugins. Most useful in specs.
+    #
+    def clear
+      @known = []
+    end
 
-  # Register a plugin instance. If a block is given, it can be used to customize
-  # the new instance.
-  #
-  # @yieldparam p [Plugin] The newly instantiated plugin subclass before
-  #   it's added to `known`.
-  #
-  def register(subclass)
-    p = subclass.new
-    yield p
-    p.setup
-    @known << p
+    # Register a plugin instance. If a block is given, it can be used to customize
+    # the new instance.
+    #
+    # @yieldparam p [Plugin] The newly instantiated plugin subclass before
+    #   it's added to `known`.
+    #
+    def register(subclass)
+      p = subclass.new
+      yield p
+      p.setup
+      @known << p
+    end
+
+    def to_s
+      "<PluginSet [#{@klass.name}, #{@known.size} loaded]>"
+    end
   end
 end
