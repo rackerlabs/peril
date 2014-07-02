@@ -47,19 +47,18 @@ module Peril
         events = []
         ts = Time.now
 
-        @repositories.each do |r|
+        @repositories.each do |repo|
           logger.info "Polling for issues in #{repo.name} since #{@last_check}."
 
           @octokit.list_issues(repo.name, since: @last_check).each do |issue|
             # Check for a keyword match.
-            if keyword_pattern =~ issue.title || keyword_pattern =~ issue.body
+            if repo.pattern =~ issue.title || repo.pattern =~ issue.body
               logger.info "#{repo.name}##{issue.number} contains a keyword match."
-              events << Event.new(
+              events << Event.from_h(
                 reporter: 'hubslurp',
                 url: issue.html_url,
                 title: issue.title,
                 origin_id: issue.id,
-                incident_date: issue.created_at.to_i,
                 tags: repo.tags
               )
             else
@@ -69,6 +68,7 @@ module Peril
         end
 
         @last_check = ts
+        logger.info "Rate limit remaining: #{@octokit.rate_limit.remaining}"
 
         events
       end
