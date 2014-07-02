@@ -1,5 +1,4 @@
 require 'active_record'
-require 'fog'
 
 # Fail loudly if a locale is unavailable.
 I18n.config.enforce_available_locales = true
