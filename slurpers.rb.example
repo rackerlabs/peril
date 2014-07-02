@@ -1,0 +1,13 @@
+# Copy this file to `slurpers.rb` and customize it to control the active
+# Notifiers.
+
+Dir[File.join __dir__, 'lib', 'peril', 'slurpers', '*.rb'].each do |srb|
+  require srb
+end
+
+# Peril::Slurpers::Hubslurp.register do |hub|
+#   hub.access_token = ''
+#
+#   hub.repository 'fog/fog', %w{ruby fog}, %{wrackspace openstack}
+#   hub.repository 'rackspace/pyrax', %w{python pyrax}, %w{rackspace openstack}
+# end
