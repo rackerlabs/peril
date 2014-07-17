@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+#
+# Driver script for Peril slurpers that consume HTTP webhooks.
+
+require_relative '../lib/peril'
+
+require 'sinatra/base'
+
+Peril::Main.new.go

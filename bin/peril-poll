@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Frontend driver script for the cli.
+# Driver script for Peril slurpers that poll at fixed intervals.
 
 require_relative '../lib/peril'
 
