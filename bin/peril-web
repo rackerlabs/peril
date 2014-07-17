@@ -6,4 +6,12 @@ require_relative '../lib/peril'
 
 require 'sinatra/base'
 
-Peril::Main.new.go
+class SlurperHooks < Sinatra::Base
+  enable :logging
+
+  get '/' do
+    'Online and ready to receive.'
+  end
+
+  Peril::Main.new.webhooks(self)
+end

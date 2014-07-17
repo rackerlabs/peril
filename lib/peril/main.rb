@@ -8,13 +8,13 @@ module Peril
   class Main
     include Loggable
 
-    # Start the loop.
+    # Perform setup common to both entry points.s
     #
-    def go
-      config = Peril::Config.get
+    def setup
+      @config = Peril::Config.get
 
       logger.debug 'establishing database connection'
-      config.dbconnect!
+      @config.dbconnect!
 
       logger.debug 'activating notifiers'
       Notifier.activate
@@ -23,11 +23,16 @@ module Peril
       logger.debug 'activating slurpers'
       Slurper.activate
       logger.debug "active slurper count: #{Slurper.known.size}"
+    end
 
+    # Start the polling loop.
+    #
+    def poll
+      setup
       scheduler = Rufus::Scheduler.new
 
       logger.info 'all systems go. commence primary ignition'
-      scheduler.every config.default(:poll_time, '5m') do
+      scheduler.every @config.default(:poll_time, '5m') do
         Slurper.poll do |event|
           logger.debug "Processing: #{event.inspect}"
           incident = Incident.for_event(event)
@@ -36,6 +41,15 @@ module Peril
       end
 
       scheduler.join
+    end
+
+    # Inject slurpers into a Sinatra base object.
+    #
+    def webhooks(sinatra)
+      setup
+      Slurper.install_webhooks(sinatra)
+
+      sinatra.run!
     end
   end
 end
