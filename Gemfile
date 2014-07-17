@@ -2,6 +2,8 @@
 source 'https://rubygems.org'
 
 gem 'rufus-scheduler', '~> 3.0.7'
+gem 'sinatra', '~> 1.4.5'
+
 gem 'rest-client', '~>1.6.7'
 gem 'log4r', '~>1.1.10'
 gem 'activerecord', '~>4.1.0'
