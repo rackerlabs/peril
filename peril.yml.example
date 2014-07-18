@@ -3,8 +3,14 @@ development:
     adapter: sqlite3
     database: db/development.sqlite3
   poll_time: '10s'
+  scheme: http
+  hostname: localhost
+  mailgun_api_key: 123456
 test:
   db:
     adapter: sqlite3
     database: db/test.sqlite3
   poll_time: '1s'
+  scheme: http
+  hostname: localhost
+  mailgun_api_key: 123456
