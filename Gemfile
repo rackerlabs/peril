@@ -11,7 +11,8 @@ gem 'activerecord', '~>4.1.0'
 gem 'foreman', '~>0.63.0'
 gem 'dotenv', '~>0.10.0'
 gem 'hipchat', '~>1.1.0'
-gem 'octokit', '~> 3.0'
+gem 'octokit', '~>3.0'
+gem 'nokogiri', '~>1.6.2.1'
 
 group :development, :test do
   gem 'rake', '~>10.3.0'
