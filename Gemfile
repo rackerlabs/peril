@@ -5,6 +5,7 @@ gem 'rufus-scheduler', '~> 3.0.7'
 gem 'sinatra', '~> 1.4.5'
 
 gem 'rest-client', '~>1.6.7'
+gem 'multimap', '~>1.1.3'
 gem 'log4r', '~>1.1.10'
 gem 'activerecord', '~>4.1.0'
 gem 'foreman', '~>0.63.0'
