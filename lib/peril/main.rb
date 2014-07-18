@@ -47,9 +47,22 @@ module Peril
     #
     def webhooks(sinatra)
       setup
+      sinatra.helpers WebhookHelpers
+
       Slurper.install_webhooks(sinatra)
 
       sinatra.run!
     end
+  end
+
+  # Helper methods available within the `webhook` block of a Slurper.
+  #
+  module WebhookHelpers
+
+    def emit(event)
+      incident = Incident.for_event(event)
+      Notifier.handle(event, incident)
+    end
+
   end
 end
