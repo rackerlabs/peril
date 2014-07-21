@@ -1,17 +1,13 @@
-#!/usr/bin/env ruby
+#!/bin/bash
 #
-# Driver script for Peril slurpers that consume HTTP webhooks.
+# Convenient way to launch Unicorn.
 
-require_relative '../lib/peril'
+ROOT=$(dirname $0)/..
 
-require 'sinatra/base'
+if [ -f "${ROOT}/unicorn.rb" ]; then
+  CONFIG=${ROOT}/unicorn.rb
+else
+  CONFIG=${ROOT}/unicorn.rb.example
+fi
 
-class SlurperHooks < Sinatra::Base
-  enable :logging
-
-  get '/' do
-    'Online and ready to receive.'
-  end
-
-  Peril::Main.new.webhooks(self)
-end
+bundle exec unicorn -c ${CONFIG}
