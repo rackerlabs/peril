@@ -2,6 +2,11 @@
 peril.yml
 notifications.rb
 slurpers.rb
+unicorn.rb
+
+unicorn.pid
+unicorn.err
+unicorn.out
 
 # Databases
 db/*.sqlite3
