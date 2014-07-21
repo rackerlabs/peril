@@ -33,15 +33,21 @@ module Peril
       end
 
       class Feed
-        def initialize(url, tags, filter)
-          @url, @tags, @filter = url, tags, filter
+        def initialize(logger, url, tags, filter)
+          @logger, @url, @tags, @filter = logger, url, tags, filter
         end
 
         def items
-          content = RestClient.get(@url).body
-          Nokogiri::XML(content).xpath("//rss/channel/item").map do |node|
-            FeedItem.from_node(node)
-          end.map(&@filter).reject(&:nil?)
+          begin
+            @logger.debug "GET #{@url}"
+            content = RestClient.get(@url).body
+            Nokogiri::XML(content).xpath("//rss/channel/item").map do |node|
+              FeedItem.from_node(node)
+            end.map(&@filter).reject(&:nil?)
+          rescue => e
+            @logger.error "Unable to fetch #{@url}! #{e.message}"
+            []
+          end
         end
       end
 
@@ -51,7 +57,7 @@ module Peril
 
       def feed(url, tags = [], &block)
         filter = block || Proc.new { |i| i }
-        @feeds << Feed.new(url, tags, filter)
+        @feeds << Feed.new(logger, url, tags, filter)
       end
 
       def setup
