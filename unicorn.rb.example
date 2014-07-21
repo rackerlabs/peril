@@ -1,0 +1,10 @@
+# Configure the unicorn.
+
+# listen '/path/to/unicorn.sock', :backlog => 64
+listen 8080
+
+worker_processes 1
+
+# pid 'unicorn.pid'
+# stderr_path 'unicorn.err'
+# stdout_path 'unicorn.out'

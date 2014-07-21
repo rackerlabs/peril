@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 gem 'rufus-scheduler', '~> 3.0.7'
 gem 'sinatra', '~> 1.4.5'
+gem 'unicorn', '~> 4.8.3'
 
 gem 'rest-client', '~>1.6.7'
 gem 'multimap', '~>1.1.3'

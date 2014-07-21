@@ -50,8 +50,6 @@ module Peril
       sinatra.helpers WebhookHelpers
 
       Slurper.install_webhooks(sinatra)
-
-      sinatra.run!
     end
   end
 
