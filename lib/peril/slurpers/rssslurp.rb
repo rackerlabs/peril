@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'date'
+require 'restclient'
 
 module Peril
   module Slurpers
@@ -11,13 +12,13 @@ module Peril
           attr_accessor :url, :title, :time, :body, :tags
 
           def to_event
-            {
+            Event.from_h(
               url: url,
               reporter: 'rssslurp',
               title: title,
               tags: tags,
               incident_date: time.to_i
-            }
+            )
           end
 
           def self.from_node node
@@ -40,7 +41,7 @@ module Peril
           content = RestClient.get(@url).body
           Nokogiri::XML(content).xpath("//rss/channel/item").map do |node|
             FeedItem.from_node(node)
-          end.map(filter).reject(&:nil?)
+          end.map(&@filter).reject(&:nil?)
         end
       end
 
@@ -48,7 +49,7 @@ module Peril
         @feeds = []
       end
 
-      def feed(url, tags, &block)
+      def feed(url, tags = [], &block)
         filter = block || Proc.new { |i| i }
         @feeds << Feed.new(url, tags, filter)
       end
@@ -60,6 +61,7 @@ module Peril
       end
 
       def next_events
+        logger.info "Fetching RSS items from #{@feeds.size} feeds."
         @feeds.flat_map(&:items).map(&:to_event)
       end
     end
