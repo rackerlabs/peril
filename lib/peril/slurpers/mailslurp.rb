@@ -17,11 +17,11 @@ module Peril
 
             # Construct an event body from the message.
             subject = params['Subject'].gsub(/^(?:(?:Re:|Fwd:)\s*)+/, '')
-            emit(Event.from_h {
+            emit(Event.from_h(
               reporter: 'mailslurp',
               title: subject,
               incident_date: Time.parse(params['Date']).to_i
-            })
+            ))
 
             200
           end
