@@ -2,19 +2,15 @@ development:
   db:
     adapter: sqlite3
     database: db/development.sqlite3
-  rackspace:
-    username: mocking
-    api_key: mocking
-    region: ORD
-  queue_name: peril_events
-  poll_time: 5
+  poll_time: '10s'
+  scheme: http
+  hostname: localhost
+  mailgun_api_key: 123456
 test:
   db:
     adapter: sqlite3
     database: db/test.sqlite3
-  rackspace:
-    username: mocking
-    api_key: mocking
-    region: ORD
-  queue_name: peril_events
-  poll_time: 1
+  poll_time: '1s'
+  scheme: http
+  hostname: localhost
+  mailgun_api_key: 123456

@@ -1,9 +1,12 @@
-# "Live" configuration file.
+# "Live" configuration files.
 peril.yml
 notifications.rb
+slurpers.rb
 
 # Databases
 db/*.sqlite3
 
 # In production
 .bundle
+
+.mailgunned

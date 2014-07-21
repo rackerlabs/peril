@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+#
+# Perform one-time setup tasks in an idempotent fashion.
+
+require 'multimap'
+require 'restclient'
+require 'yaml'
+
+require_relative '../lib/peril/config'
+
+@config = Peril::Config.get
+
+MAILGUNNED = File.join(__dir__, '.mailgunned')
+
+def maingun
+  if File.exist? MAILGUNNED
+    puts 'Already registered with mailgun. Skipping.'
+    return
+  end
+
+  target = "#{@config.required('scheme')}://#{@config.required('hostname')}/mailslurp/incoming"
+  puts "Configuring Mailgun to forward everything to: #{target}"
+
+  data = Multimap.new
+  data[:priority] = 1
+  data[:description] = 'Give me all your email'
+  data[:expression] = 'catch_all()'
+  data[:action] = "forward('#{target}')"
+
+  RestClient.post "https://api:#{@config.required('mailgun_api_key')}" \
+    "@api.mailgun.net/v2/routes", data
+
+  File.write MAILGUNNED, "Mailgunned at #{Time.now}"
+end
+
+mailgun

@@ -57,7 +57,7 @@ module Peril
           when e.title && e.reporter
             e.unique_id = "#{e.reporter}:title:#{e.title}"
           when hash['origin_id'] && e.reporter
-            e.unique_id = "#{e.reporter}:origin:12345"
+            e.unique_id = "#{e.reporter}:origin:#{hash['origin_id']}"
           end
         end
 

@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-#
-# Frontend driver script for the cli.
-
-require_relative '../lib/peril'
-
-Peril::Main.new.go

@@ -1,0 +1,49 @@
+# Copy this file to `slurpers.rb` and customize it to control the active
+# Notifiers.
+
+Dir[File.join __dir__, 'lib', 'peril', 'slurpers', '*.rb'].each do |srb|
+  require srb
+end
+
+# Watch for events on the filesystem from an external slurper.
+#
+# Peril::Slurpers::Dirslurp.register do |dslurp|
+#   dslurp.directory '/var/peril/events'
+# end
+
+# Watch GitHub issues for specific repositories.
+#
+# Peril::Slurpers::Hubslurp.register do |hub|
+#   hub.access_token = 'super secret squirrels'
+#
+#   hub.repository 'fog/fog', %w{ruby fog}, %{wrackspace openstack}
+#   hub.repository 'rackspace/pyrax', %w{python pyrax}, %w{rackspace openstack}
+# end
+
+# Watch email received by a Mailgun account.
+#
+# Peril::Slurpers::Mailslurp.register
+
+# Watch arbitrary RSS feeds, optionally filtered by a block.
+#
+# Peril::Slurpers::Rssslurp.register do |slurp|
+#   slurp.feed 'https://community.rackspace.com/developers/rss'
+#
+#   JCLOUDS_PATTERN = /rackspace|openstack/
+#   JCLOUDS_FEED = %w{
+#     https://issues.apache.org/jira/sr/
+#     jira.issueviews:searchrequest-rss/temp/SearchRequest.xml
+#     ?jqlQuery=project+%3D+JCLOUDS&tempMax=100
+#   }.join
+#   slurp.feed JCLOUDS_FEED, %w{jclouds} do |i|
+#     (i.body.downcase + i.title.downcase) =~ JCLOUDS_PATTERN ? i : nil
+#   end
+# end
+
+# Watch questions in certain tags on StackExchange sites.
+#
+# Peril::Slurpers::Stackslurp.register do |slurp|
+#   slurp.sites %w{stackoverflow serverfault superuser}
+#   slurp.tags %w{rackspace rackspace-cloud fog cloudfiles jclouds pyrax keystone}
+#   slurp.key 'super secret squirrels'
+# end

@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+#
+# Driver script for Peril slurpers that poll at fixed intervals.
+
+require_relative '../lib/peril'
+
+Peril::Main.new.poll
