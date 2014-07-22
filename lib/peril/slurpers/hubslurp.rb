@@ -20,7 +20,7 @@ module Peril
 
       def repository(name, tags = [], keywords = [])
         if keywords.empty?
-          pattern = nil
+          pattern = /./
         else
           pattern = Regexp.new(
             keywords.map { |kw| Regexp.escape kw }.join('|'),
