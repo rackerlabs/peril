@@ -12,7 +12,7 @@ require_relative '../lib/peril/config'
 
 MAILGUNNED = File.join(__dir__, '.mailgunned')
 
-def maingun
+def mailgun
   if File.exist? MAILGUNNED
     puts 'Already registered with mailgun. Skipping.'
     return
