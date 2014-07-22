@@ -32,10 +32,12 @@ module Peril
 
         message = []
         message << NEW_INCIDENT_MESSAGES[rand(NEW_INCIDENT_MESSAGES.size)]
+
+        prefix = "<em>#{incident.original_reporter}</em>"
         if incident.url
-          message << "<a href='#{incident.url}'>#{incident.title}</a>"
+          message << "#{prefix} <a href='#{incident.url}'>#{incident.title}</a>"
         else
-          message << "<strong>#{incident.title}</strong>"
+          message << "#{prefix} <strong>#{incident.title}</strong>"
         end
 
         @client[@room].send(@username, message.join('<br/>'))
