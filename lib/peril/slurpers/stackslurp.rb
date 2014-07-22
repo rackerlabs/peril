@@ -57,6 +57,7 @@ module Peril
             JSON.parse(resp.body)['items'].map { |q| question_to_event q }
           rescue RestClient::Exception => e
             logger.error "Unable to contact StackExchange API! #{e.message}"
+            logger.error e.inspect
             []
           end
         end
