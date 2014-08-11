@@ -28,13 +28,22 @@ cd peril
 # Install dependencies.
 bundle install
 
-# Optionally:
+# To configure logging and database stuff:
+#
 # cp peril.example.yml peril.yml
 # ${EDITOR} peril.yml
 
-cp notifications.rb.example notifications.rb
-# Optionally:
+# By default, only the LoggerNotifier is registered.
+# To configure active notifiers:
+#
+# cp notifications.rb.example notifications.rb
 # ${EDITOR} notifications.rb
+
+# By default, no slurpers are active.
+# To configure active slurpers:
+#
+cp slurpers.rb.example slurpers.rb
+${EDITOR} slurpers.rb
 
 # Run the polling process.
 #
