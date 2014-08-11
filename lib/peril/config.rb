@@ -10,7 +10,7 @@ module Peril
   end
 
   # Access Peril's application configuration, as specified in `peril.yml` or
-  # `peril.yml.example`.
+  # `peril.example.yml`.
   #
   class Config
     ROOT = File.join __dir__, '..', '..'
@@ -108,7 +108,7 @@ module Peril
     # @return [Hash] The deserialized YAML from the configuration file.
     #
     def self.load
-      %w(peril.yml peril.yml.example).each do |fname|
+      %w(peril.yml peril.example.yml).each do |fname|
         path = File.join ROOT, fname
         return YAML.load_file(path)[env] if File.exists? path
       end

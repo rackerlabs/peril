@@ -28,8 +28,8 @@ cd peril
 # Install dependencies.
 bundle install
 
-cp peril.example.yml peril.yml
 # Optionally:
+# cp peril.example.yml peril.yml
 # ${EDITOR} peril.yml
 
 cp notifications.rb.example notifications.rb
