@@ -47,15 +47,16 @@ ${EDITOR} slurpers.rb
 
 # Run the polling process.
 #
-# This will call #next_events in each Slurper and broadcast each returned event to all notifiers.
-# Note that this will take over the terminal you run it in for output.
+# This will call #next_events in each Slurper and broadcast each returned event to all
+# notifiers. Note that this will take over the terminal you run it in for output.
 #
 bundle exec ruby bin/peril-poll
 
 # Run the webhook consumer.
 #
-# This will listen for incoming webhooks and dispatch them to the Slurpers that registered them.
-# Note that this will take over the terminal you run it in for output.
+# This will listen for incoming webhooks and dispatch them to the Slurpers that
+# registered them. Note that this will also take over the terminal you run it in
+# for output.
 #
 bundle exec ruby bin/peril-web
 ```
