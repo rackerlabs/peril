@@ -1,0 +1,12 @@
+development:
+  db:
+    adapter: sqlite3
+    database: db/development.sqlite3
+  poll_time: '10s'
+  logging:
+    level: DEBUG
+test:
+  db:
+    adapter: sqlite3
+    database: db/test.sqlite3
+  poll_time: '1s'
