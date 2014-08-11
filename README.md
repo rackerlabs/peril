@@ -58,5 +58,5 @@ bundle exec ruby bin/peril-poll
 # registered them. Note that this will also take over the terminal you run it in
 # for output.
 #
-bundle exec ruby bin/peril-web
+bundle exec bin/peril-web
 ```
