@@ -2,8 +2,8 @@ require 'rufus-scheduler'
 
 module Peril
 
-  # Entry point for the CLI. Configure all the things, then poll the Cloud
-  # Queue and fire all notifiers each time an Event arrives.
+  # Entry point for the CLI. Configure all the things, then poll the Slurpers
+  # and fire all notifiers each time an Event arrives.
   #
   class Main
     include Loggable
