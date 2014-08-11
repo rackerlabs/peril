@@ -12,7 +12,7 @@ Peril consists of a family of *slurpers* that either poll for new events from so
 
 ## Hacking
 
-Want to hack on Peril? Running a local instance is easy:
+Want to hack on Peril? Here's how to get started.
 
 ```bash
 cd ${PROJECTS_HOME}
