@@ -14,7 +14,7 @@ Peril consists of a family of *slurpers* that either poll for new events from so
 
 Want to hack on Peril? Here's how to get started.
 
-First, you'll need [git](http://git-scm.com/downloads) and a [sane Ruby installation](https://www.ruby-lang.org/en/installation/). There are a many choices for installing both. Personally, on my Mac, I use [homebrew](http://brew.sh/) to install git and [rbenv](https://github.com/sstephenson/rbenv) + [ruby-build](https://github.com/sstephenson/ruby-build#readme) for Rubies. However you choose your setup, make sure you end up with a recent Ruby - I'm currently on 2.1.2.
+First, you'll need [git](http://git-scm.com/downloads) and a [sane Ruby installation](https://www.ruby-lang.org/en/installation/). There are many choices for installing both. Personally, on my Mac, I use [homebrew](http://brew.sh/) to install git and [rbenv](https://github.com/sstephenson/rbenv) + [ruby-build](https://github.com/sstephenson/ruby-build#readme) for Rubies. However you choose your setup, make sure you end up with a recent Ruby - I'm currently on 2.1.2.
 
 ```bash
 # Install Bundler.
