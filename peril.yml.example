@@ -5,6 +5,8 @@ development:
   poll_time: '10s'
   scheme: http
   hostname: localhost
+
+  # Only necessary for bin/peril-setup.
   mailgun_api_key: 123456
 test:
   db:
@@ -13,4 +15,6 @@ test:
   poll_time: '1s'
   scheme: http
   hostname: localhost
+
+  # Only necessary for bin/peril-setup.
   mailgun_api_key: 123456
