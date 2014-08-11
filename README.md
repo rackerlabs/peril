@@ -14,25 +14,41 @@ Peril consists of a family of *slurpers* that either poll for new events from so
 
 Want to hack on Peril? Here's how to get started.
 
+First, you'll need [git](http://git-scm.com/downloads) and a [sane Ruby installation](https://www.ruby-lang.org/en/installation/). There are a many choices for installing both. Personally, on my Mac, I use [homebrew](http://brew.sh/) to install git and [rbenv](https://github.com/sstephenson/rbenv) + [ruby-build](https://github.com/sstephenson/ruby-build#readme) for Rubies. However you choose your setup, make sure you end up with a recent Ruby - I'm currently on 2.1.2.
+
 ```bash
+ruby -v # => 2.1.2p95
+
+# Install Bundler.
+gem install bundler
+
+# Clone it!
 cd ${PROJECTS_HOME}
 git clone git@github.com:rackerlabs/peril.git
 cd peril
 
-# You'll need to fill in a few configuration options.
+# Install dependencies.
+bundle install
+
 cp peril.yml.example peril.yml
-${EDITOR} peril.yml
+# Optionally:
+# ${EDITOR} peril.yml
 
 cp notifications.rb.example notifications.rb
 # Optionally:
 # ${EDITOR} notifications.rb
 
-# Install dependencies.
-bundle install
+# Run the polling process.
+#
+# This will call #next_events in each Slurper and broadcast each returned event to all notifiers.
+# Note that this will take over the terminal you run it in for output.
+#
+bundle exec ruby bin/peril-poll
 
-# Kick it off.
-bundle exec bin/peril
-
-# In another terminal, you can run this to seed the Cloud Queue with fake events:
-bundle exec bin/seed
+# Run the webhook consumer.
+#
+# This will listen for incoming webhooks and dispatch them to the Slurpers that registered them.
+# Note that this will take over the terminal you run it in for output.
+#
+bundle exec ruby bin/peril-web
 ```
