@@ -25,8 +25,8 @@ cd ${PROJECTS_HOME}
 git clone git@github.com:rackerlabs/peril.git
 cd peril
 
-# Install dependencies.
-bundle install
+# Install dependencies, skipping production-only stuff.
+bundle install --without production
 
 # To configure logging and database stuff:
 #
