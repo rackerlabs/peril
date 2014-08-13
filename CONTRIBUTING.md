@@ -1,8 +1,10 @@
-Contributors are welcome! I'm a big believer in [the GitHub flow](http://guides.github.com/overviews/flow/). You can read about it there, but roughly, it means:
+Contributors are welcome! I'm a big believer in [the GitHub flow](http://guides.github.com/overviews/flow/). You can read about it there, but roughly, here's how I do it:
 
 1. Fork the repo. :fork_and_knife:
 2. Do your work on its own branch! Avoid working directly on `master`.
 3. Open a pull request early, before you're finished. Prefix the title with "[wip]" to distinguish it from work that's ready to merge.
+4. Push code! Comment on code! Collaborate!
+5. Once it's ready to go, take the "[wip]" off the title. I'll merge it, then... profit!
 
 Things to keep in mind while you're writing code:
 
