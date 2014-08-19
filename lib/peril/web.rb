@@ -18,6 +18,8 @@ module Peril
 
         headers 'Content-Type' => 'application/json'
 
+        ts = ->(t) { t && t.to_i }
+
         Incident.where('updated_at > ?', since).order(:updated_at).map do |i|
           {
             unique_id: i.unique_id,
@@ -26,11 +28,11 @@ module Peril
             title: i.title,
             tags: (i.tags || '').split(/\s*,\s*/),
             assignee: i.assignee,
-            assigned_at: i.assigned_at.to_i,
-            completed_at: i.completed_at.to_i,
+            assigned_at: ts[i.assigned_at],
+            completed_at: ts[i.completed_at],
             extra: i.extra,
-            created_at: i.created_at.to_i,
-            updated_at: i.updated_at.to_i
+            created_at: ts[i.created_at],
+            updated_at: ts[i.updated_at]
           }
         end.to_json
       end
