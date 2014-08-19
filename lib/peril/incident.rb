@@ -18,6 +18,9 @@ module Peril
   # t.timestamp :completed_at
   #
   # t.text :extra
+  #
+  # t.timestamp :created_at
+  # t.timestamp :updated_at
   # ```
   #
   class Incident < ActiveRecord::Base
