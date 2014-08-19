@@ -48,6 +48,7 @@ module Peril
     def webhooks(sinatra)
       setup
       sinatra.helpers WebhookHelpers
+      sinatra.include Web
 
       Slurper.install_webhooks(sinatra)
     end
