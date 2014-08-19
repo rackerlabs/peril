@@ -19,6 +19,7 @@ class TestApp < Sinatra::Base
 end
 
 describe 'Webhooks' do
+  include Cleaned
   include Rack::Test::Methods
 
   def app
@@ -35,6 +36,13 @@ describe 'Webhooks' do
   end
 
   describe 'incident listing' do
+
+    def hashlike(h)
+      h.each_with_object({}) do |pair, h|
+        h[pair[0].to_s] = pair[1]
+      end
+    end
+
     it 'lists recently updated incidents' do
       ts = Time.at(1408475116)
 
@@ -46,8 +54,35 @@ describe 'Webhooks' do
 
       last_response.must_be :ok?
       doc = JSON.parse(last_response.body)
-    end
 
+      doc.size.must_equal 2
+      doc[0].must_equal hashlike(
+        unique_id: 'bbb',
+        original_reporter: 'minitest',
+        url: nil,
+        title: nil,
+        tags: [],
+        assignee: nil,
+        assigned_at: nil,
+        completed_at: nil,
+        extra: nil,
+        created_at: ts.to_i,
+        updated_at: (ts + 10).to_i
+      )
+      doc[1].must_equal hashlike(
+        unique_id: 'ccc',
+        original_reporter: 'minitest',
+        url: nil,
+        title: nil,
+        tags: [],
+        assignee: nil,
+        assigned_at: nil,
+        completed_at: nil,
+        extra: nil,
+        created_at: (ts - 10).to_i,
+        updated_at: (ts + 20).to_i
+      )
+    end
   end
 
 end

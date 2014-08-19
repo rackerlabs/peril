@@ -13,3 +13,10 @@ include Peril
 # Configure the database.
 DatabaseCleaner.strategy = :truncation
 Peril::Config.get.dbconnect!
+
+module Cleaned
+  def before_setup
+    super
+    DatabaseCleaner.clean
+  end
+end
