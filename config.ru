@@ -7,11 +7,7 @@ require_relative 'lib/peril'
 require 'sinatra/base'
 
 class SlurperHooks < Sinatra::Base
-  enable :logging
-
-  get '/' do
-    'Online and ready to receive.'
-  end
+  enable :loggings
 
   Peril::Main.new.webhooks(self)
 end

@@ -5,8 +5,6 @@ module Peril
       include Loggable
 
       def setup
-        var = 1234
-
         webhook do
           get '/mailslurp/info' do
             "Mailslurp is up and running."

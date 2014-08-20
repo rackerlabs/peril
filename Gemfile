@@ -20,6 +20,7 @@ group :development, :test do
   gem 'pry', '~>0.9.12'
   gem 'sqlite3', '~>1.3.9'
   gem 'database_cleaner', '~>1.2.0'
+  gem 'rack-test', '~> 0.6.2'
 end
 
 group :production do

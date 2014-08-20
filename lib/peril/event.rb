@@ -3,6 +3,7 @@ module Peril
 
   # Schema:
   #
+  # ```
   # t.text :unique_id
   # t.text :reporter
   # t.integer :incident_id
@@ -16,6 +17,10 @@ module Peril
   # t.timestamp :completed_at
   #
   # t.text :extra
+  #
+  # t.timestamp :created_at
+  # t.timestamp :updated_at
+  # ```
   #
   class Event < ActiveRecord::Base
     belongs_to :incident

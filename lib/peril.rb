@@ -14,6 +14,7 @@ require_relative 'peril/slurper'
 require_relative 'peril/event'
 require_relative 'peril/incident'
 
+require_relative 'peril/web'
 require_relative 'peril/main'
 
 module Peril
