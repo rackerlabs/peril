@@ -41,6 +41,10 @@ module Peril
 
     def just_updated? ; @just_updated ; end
 
+    def parsed_tags
+      tags.split(/\s*,\s*/)
+    end
+
     # Find or create an Incident that maps to the `unique_id` specified by
     # an Event. Populate or update it based on the event's context and add
     # the Event to its `#events` relation.
