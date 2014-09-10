@@ -42,7 +42,7 @@ module Peril
     def just_updated? ; @just_updated ; end
 
     def parsed_tags
-      tags.split(/\s*,\s*/)
+      tags.nil? ? [] : tags.split(/\s*,\s*/)
     end
 
     # Find or create an Incident that maps to the `unique_id` specified by
