@@ -1,9 +1,11 @@
 PWD=$(shell pwd)
+ROOT=/usr/src/app
 VOLUMES=\
-	--volume=$(PWD)/peril.yml:/usr/src/app/peril.yml \
-	--volume=$(PWD)/notifications.rb:/usr/src/app/notifications.rb \
-	--volume=$(PWD)/slurpers.rb:/usr/src/app/slurpers.rb \
-	--volume=$(PWD)/unicorn.rb:/usr/src/app/unicorn.rb \
+	--volume=$(PWD)/peril.yml:$(ROOT)/peril.yml \
+	--volume=$(PWD)/notifications.rb:$(ROOT)/notifications.rb \
+	--volume=$(PWD)/slurpers.rb:$(ROOT)/slurpers.rb \
+	--volume=$(PWD)/unicorn.rb:$(ROOT)/unicorn.rb \
+	--volume=$(PWD)/db/development.sqlite3:$(ROOT)/db/development.sqlite3
 
 .PHONY: build-image
 
